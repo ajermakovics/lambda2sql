@@ -33,8 +33,9 @@ public class Lambda2SqlTest {
 	}
 
 	@Test
-	public void testMultiLogicalOps() throws Exception {
+	public void testMultipleLogicalOps() throws Exception {
 		assertEqual("active AND (age < 100 OR height > 200)", e -> e.isActive() && (e.getAge() < 100 || e.getHeight() > 200) );
+		assertEqual("(age < 100 OR height > 200) AND active", e -> (e.getAge() < 100 || e.getHeight() > 200) && e.isActive() );
 	}
 
 	private void assertEqual(String expectedSql, Predicate<Person> p) {

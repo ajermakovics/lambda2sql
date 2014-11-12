@@ -6,27 +6,24 @@ import static com.trigersoft.jaque.expression.ExpressionType.LogicalOr;
 
 import com.trigersoft.jaque.expression.*;
 
-public class ToSqlVisitor implements ExpressionVisitor<String> {
+public class ToSqlVisitor implements ExpressionVisitor<StringBuilder> {
 
-	boolean top = true;
-
+	private StringBuilder sb = new StringBuilder();
+	private Expression body;
 
 	@Override
-	public String visit(BinaryExpression e) {
-		boolean quote = !top && e.getExpressionType() == LogicalOr;
-		top = false;
+	public StringBuilder visit(BinaryExpression e) {
+		boolean quote = e != body && e.getExpressionType() == LogicalOr;
 
-		StringBuilder sb = new StringBuilder();
 		if( quote ) sb.append('(');
 
-		String first = e.getFirst().accept(this);
-		String second = e.getSecond().accept(this);
-
-		sb.append(first).append(' ').append(toSqlOp(e.getExpressionType())).append(' ').append(second);
+		e.getFirst().accept(this);
+		sb.append(' ').append(toSqlOp(e.getExpressionType())).append(' ');
+		e.getSecond().accept(this);
 
 		if( quote ) sb.append(')');
 
-		return sb.toString();
+		return sb;
 	}
 
 	public static String toSqlOp(int expressionType) {
@@ -39,35 +36,37 @@ public class ToSqlVisitor implements ExpressionVisitor<String> {
 	}
 
 	@Override
-	public String visit(ConstantExpression e) {
-		return e.getValue().toString();
+	public StringBuilder visit(ConstantExpression e) {
+		return sb.append(e.getValue().toString());
 	}
 
 	@Override
-	public String visit(InvocationExpression e) {
+	public StringBuilder visit(InvocationExpression e) {
 		return e.getTarget().accept(this);
 	}
 
 	@Override
-	public String visit(LambdaExpression<?> e) {
-		return e.getBody().accept(this);
+	public StringBuilder visit(LambdaExpression<?> e) {
+		this.body = e.getBody();
+		return body.accept(this);
 	}
 
 	@Override
-	public String visit(MemberExpression e) {
+	public StringBuilder visit(MemberExpression e) {
 		String name = e.getMember().getName();
-		return name.replaceAll("^(get|is)", "").toLowerCase();
+		name = name.replaceAll("^(get|is)", "").toLowerCase();
+		return sb.append(name);
 	}
 
 	@Override
-	public String visit(ParameterExpression e) {
-		return "";
+	public StringBuilder visit(ParameterExpression e) {
+		return sb;
 	}
 
 	@Override
-	public String visit(UnaryExpression e) {
-		String first = e.getFirst().accept(this);
-		return ExpressionType.toString(e.getExpressionType()) + first;
+	public StringBuilder visit(UnaryExpression e) {
+		sb.append(ExpressionType.toString(e.getExpressionType()));
+		return e.getFirst().accept(this);
 	}
 
 }

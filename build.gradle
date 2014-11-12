@@ -5,6 +5,10 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 version = '0.1'
+group = "lambda2sql"
+archivesBaseName = "lambda2sql"
+jar.baseName = archivesBaseName
+
 jar {
     manifest {
         attributes 'Implementation-Title': 'Lambda2sql', 'Implementation-Version': version

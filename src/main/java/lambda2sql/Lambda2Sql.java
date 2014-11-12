@@ -37,6 +37,6 @@ public class Lambda2Sql {
 	 */
 	public static <T> String toSql(Predicate<T> predicate) {
 		LambdaExpression<Predicate<T>> lambdaExpression = LambdaExpression.parse(predicate);
-		return lambdaExpression.accept(new ToSqlVisitor());
+		return lambdaExpression.accept(new ToSqlVisitor()).toString();
 	}
 }

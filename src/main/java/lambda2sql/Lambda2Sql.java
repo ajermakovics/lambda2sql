@@ -1,6 +1,8 @@
 package lambda2sql;
 
+import static java.lang.System.getProperty;
 import static java.nio.file.Files.createTempDirectory;
+import static java.util.Objects.requireNonNull;
 
 import java.io.IOException;
 import java.util.function.Predicate;
@@ -36,6 +38,7 @@ public class Lambda2Sql {
 	 * Supported operators: >,>=,<,<=,=,!=,&&,||,!
 	 */
 	public static <T> String toSql(Predicate<T> predicate) {
+		requireNonNull(getProperty(DUMP_CLASSES_PROP), "Call init() before creating the predicate.");
 		LambdaExpression<Predicate<T>> lambdaExpression = LambdaExpression.parse(predicate);
 		return lambdaExpression.accept(new ToSqlVisitor()).toString();
 	}

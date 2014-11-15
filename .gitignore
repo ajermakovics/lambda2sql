@@ -1,10 +1,9 @@
-.gradle/ 
+*.class
+*.jar
 .classpath 
 .project 
 .settings/
-*.class
-*.jar
+.gradle/
 bin/
 build/
 target/
-

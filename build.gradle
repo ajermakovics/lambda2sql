@@ -21,5 +21,10 @@ dependencies {
 jar {
 	from sourceSets.main.allSource // include source
     manifest { attributes 'Implementation-Title': 'Lambda2sql', 'Implementation-Version': version }
-	from configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } // fat jar
+}
+
+task fatJar(type: Jar) {
+    baseName = project.name + '-all'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
 }

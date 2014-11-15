@@ -1,4 +1,4 @@
-Lambda2sql
+Lambda2sql (lambda) -> "sql"
 ==========
 
 Convert Java 8 lambdas to SQL statements.
@@ -21,7 +21,7 @@ Usage
 ---------
 
 ```
-Lambda2Sql.init(); // initialize on program start
+Lambda2Sql.init(); // initialize on program start, before predicates are created
 
 Predicate<Person> predicate = person -> person.getAge() < 100 && person.getHeight() > 200;
 
@@ -49,7 +49,7 @@ Current version only works with predicates and supports the following operators:
 Build
 ---------
 
-`gradle jar`
+`gradle jar` or `gradle fatjar` to include dependencies.
 
-or you can just [download the jar](http://dl.bintray.com/ajermakovics/jar/lambda2sql-0.1.jar).
+or you can just [download the fat jar](http://dl.bintray.com/ajermakovics/jar/lambda2sql-0.1.jar).
 

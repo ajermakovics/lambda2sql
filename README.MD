@@ -3,7 +3,7 @@ Lambda2sql (lambda) -> "sql"
 
 Convert Java 8 lambdas to SQL statements.
 
-For example, the following Predicate:
+For example, the following Predicate<Person>:
 ```
  person -> person.getAge() < 100 && person.getHeight() > 200
 ```
@@ -15,7 +15,7 @@ is converted to a string:
 ```
 allowing you to write readable queries in a type safe way.
 
-See Lambda2SqlTest for more examples.
+See Lambda2SqlTest for more examples or the [Wiki](https://github.com/ajermakovics/lambda2sql/wiki).
 	
 Usage
 ---------

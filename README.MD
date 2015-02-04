@@ -15,7 +15,7 @@ is converted to a string:
 ```
 allowing you to write readable queries in a type safe way.
 
-See [Lambda2SqlTest](/ajermakovics/lambda2sql/blob/master/src/test/java/lambda2sql/Lambda2SqlTest.java) for more examples or the [Wiki](https://github.com/ajermakovics/lambda2sql/wiki).
+See [Lambda2SqlTest](https://github.com/ajermakovics/lambda2sql/blob/master/src/test/java/lambda2sql/Lambda2SqlTest.java) for more examples or the [Wiki](https://github.com/ajermakovics/lambda2sql/wiki).
 	
 Usage
 ---------

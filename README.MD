@@ -46,6 +46,12 @@ Limitations
 
 Current version only works with predicates and supports the following operators: >, >=, <, <=, =, !=, &&, ||, !
 
+Install
+-------
+
+You can get the library using JitPack https://jitpack.io/#ajermakovics/lambda2sql/v0.1
+
+
 Build
 ---------
 

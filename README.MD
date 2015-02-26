@@ -1,6 +1,8 @@
 Lambda2sql (lambda) -> "sql"
 ==========
 
+[![Release](https://img.shields.io/github/tag/ajermakovics/lambda2sql.svg?label=version)](https://jitpack.io/#ajermakovics/lambda2sql/v0.1)
+
 Convert Java 8 lambdas to SQL statements.
 
 For example, the following Predicate<Person>:
@@ -51,6 +53,14 @@ Install
 
 You can get the library using JitPack https://jitpack.io/#ajermakovics/lambda2sql/v0.1
 
+```gradle
+repositories {
+    maven { url "https://jitpack.io" }
+}
+dependencies {
+    compile 'com.github.ajermakovics:lambda2sql:v0.1'
+}	
+```
 
 Build
 ---------

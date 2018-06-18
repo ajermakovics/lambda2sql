@@ -57,7 +57,7 @@ public class ToSqlVisitor implements ExpressionVisitor<StringBuilder> {
 	@Override
 	public StringBuilder visit(MemberExpression e) {
 		String name = e.getMember().getName();
-		name = name.replaceAll("^(get)", "")
+		name = name.replaceAll("^(get)", "");
 		name = name.substring(0, 1).toLowerCase() + name.substring(1);
 		return sb.append(name);
 	}

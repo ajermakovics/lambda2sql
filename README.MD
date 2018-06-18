@@ -1,7 +1,7 @@
 Lambda2sql (lambda) -> "sql"
 ==========
 
-[![Release](https://img.shields.io/github/tag/ajermakovics/lambda2sql.svg?label=version)](https://jitpack.io/#ajermakovics/lambda2sql/v0.1)
+[![](https://jitpack.io/v/ajermakovics/lambda2sql.svg)](https://jitpack.io/#ajermakovics/lambda2sql)
 
 Convert Java 8 lambdas to SQL statements.
 
@@ -51,14 +51,14 @@ Current version only works with predicates and supports the following operators:
 Install
 -------
 
-You can get the library using JitPack https://jitpack.io/#ajermakovics/lambda2sql/v0.1
+You can get the library using JitPack https://jitpack.io/#ajermakovics/lambda2sql/0.3
 
 ```gradle
 repositories {
     maven { url "https://jitpack.io" }
 }
 dependencies {
-    compile 'com.github.ajermakovics:lambda2sql:v0.1'
+    compile 'com.github.ajermakovics:lambda2sql:0.3'
 }	
 ```
 
@@ -66,6 +66,3 @@ Build
 ---------
 
 `gradle jar` or `gradle fatjar` to include dependencies.
-
-or you can just [download the fat jar](http://dl.bintray.com/ajermakovics/jar/lambda2sql-0.1.jar).
-

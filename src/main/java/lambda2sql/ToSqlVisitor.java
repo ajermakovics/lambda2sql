@@ -5,12 +5,14 @@ import static com.trigersoft.jaque.expression.ExpressionType.LogicalAnd;
 import static com.trigersoft.jaque.expression.ExpressionType.LogicalOr;
 
 import com.trigersoft.jaque.expression.*;
+import java.util.List;
+import java.util.ArrayList;
 
 public class ToSqlVisitor implements ExpressionVisitor<StringBuilder> {
 
 	private StringBuilder sb = new StringBuilder();
 	private Expression body;
-	private ArrayList<ConstantExpression> parameters = new ArrayList<>();
+	private List<ConstantExpression> parameters = new ArrayList<>();
 
 	@Override
 	public StringBuilder visit(BinaryExpression e) {

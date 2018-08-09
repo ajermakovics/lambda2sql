@@ -10,6 +10,7 @@ public class ToSqlVisitor implements ExpressionVisitor<StringBuilder> {
 
 	private StringBuilder sb = new StringBuilder();
 	private Expression body;
+	private ArrayList<ConstantExpression> parameters = new ArrayList<>();
 
 	@Override
 	public StringBuilder visit(BinaryExpression e) {
@@ -45,6 +46,7 @@ public class ToSqlVisitor implements ExpressionVisitor<StringBuilder> {
 
 	@Override
 	public StringBuilder visit(InvocationExpression e) {
+		e.getArguments().stream().filter(x -> x instanceof ConstantExpression).forEach(x -> parameters.add((ConstantExpression) x));
 		return e.getTarget().accept(this);
 	}
 
@@ -64,6 +66,7 @@ public class ToSqlVisitor implements ExpressionVisitor<StringBuilder> {
 
 	@Override
 	public StringBuilder visit(ParameterExpression e) {
+		parameters.get(e.getIndex()).accept(this);
 		return sb;
 	}
 

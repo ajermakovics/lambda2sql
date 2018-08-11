@@ -1,22 +1,12 @@
 package lambda2sql;
 
-import static org.junit.Assert.assertEquals;
-
-import java.util.function.Predicate;
-
-import org.junit.BeforeClass;
+import org.junit.Assert;
 import org.junit.Test;
-
 
 public class Lambda2SqlTest {
 
-	@BeforeClass
-	public static void init() throws Exception {
-		Lambda2Sql.init();
-	}
-
 	@Test
-	public void testComparisons() throws Exception {
+	public void testComparisons() {
 		assertEqual("age = 1", e -> e.getAge() == 1);
 		assertEqual("age > 1", e -> e.getAge() > 1);
 		assertEqual("age < 1", e -> e.getAge() < 1);
@@ -26,20 +16,26 @@ public class Lambda2SqlTest {
 	}
 
 	@Test
-	public void testLogicalOps() throws Exception {
-		assertEqual("!active", e -> ! e.isActive() );
-		assertEqual("age < 100 AND height > 200", e -> e.getAge() < 100 && e.getHeight() > 200 );
-		assertEqual("age < 100 OR height > 200", e -> e.getAge() < 100 || e.getHeight() > 200 );
+	public void testLogicalOps() {
+		assertEqual("!isActive", e -> !e.isActive());
+		assertEqual("age < 100 AND height > 200", e -> e.getAge() < 100 && e.getHeight() > 200);
+		assertEqual("age < 100 OR height > 200", e -> e.getAge() < 100 || e.getHeight() > 200);
 	}
 
 	@Test
-	public void testMultipleLogicalOps() throws Exception {
-		assertEqual("active AND (age < 100 OR height > 200)", e -> e.isActive() && (e.getAge() < 100 || e.getHeight() > 200) );
-		assertEqual("(age < 100 OR height > 200) AND active", e -> (e.getAge() < 100 || e.getHeight() > 200) && e.isActive() );
+	public void testMultipleLogicalOps() {
+		assertEqual("isActive AND (age < 100 OR height > 200)", e -> e.isActive() && (e.getAge() < 100 || e.getHeight() > 200));
+		assertEqual("(age < 100 OR height > 200) AND isActive", e -> (e.getAge() < 100 || e.getHeight() > 200) && e.isActive());
 	}
 
-	private void assertEqual(String expectedSql, Predicate<Person> p) {
+	@Test
+	public void testWithVariables() {
+		String name = "Donald";
+		assertEqual("name = 'Donald'", person -> person.getName() == name);
+	}
+
+	private void assertEqual(String expectedSql, SqlPredicate<Person> p) {
 		String sql = Lambda2Sql.toSql(p);
-		assertEquals(expectedSql, sql);
+		Assert.assertEquals(expectedSql, sql);
 	}
 }

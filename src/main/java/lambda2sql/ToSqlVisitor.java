@@ -1,8 +1,6 @@
 package lambda2sql;
 
 import com.trigersoft.jaque.expression.*;
-import java.util.List;
-import java.util.ArrayList;
 
 import java.util.ArrayList;
 import java.util.List;

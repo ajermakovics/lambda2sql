@@ -3,6 +3,7 @@ package lambda2sql;
 import com.trigersoft.jaque.expression.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static com.trigersoft.jaque.expression.ExpressionType.*;
 
@@ -10,7 +11,7 @@ public class ToSqlVisitor implements ExpressionVisitor<StringBuilder> {
 
 	private StringBuilder sb = new StringBuilder();
 	private Expression body;
-	private ArrayList<ConstantExpression> parameters = new ArrayList<>();
+	private List<ConstantExpression> parameters = new ArrayList<>();
 
 	private static String toSqlOp(int expressionType) {
 		switch (expressionType) {
@@ -20,6 +21,8 @@ public class ToSqlVisitor implements ExpressionVisitor<StringBuilder> {
 				return "AND";
 			case LogicalOr:
 				return "OR";
+			case Convert:
+				return "";
 		}
 		return ExpressionType.toString(expressionType);
 	}
@@ -76,7 +79,7 @@ public class ToSqlVisitor implements ExpressionVisitor<StringBuilder> {
 
 	@Override
 	public StringBuilder visit(UnaryExpression e) {
-		sb.append(ExpressionType.toString(e.getExpressionType()));
+		sb.append(toSqlOp(e.getExpressionType()));
 		return e.getFirst().accept(this);
 	}
 

@@ -31,7 +31,10 @@ public class Lambda2SqlTest {
 	@Test
 	public void testWithVariables() {
 		String name = "Donald";
-		assertEqual("name = 'Donald'", person -> person.getName() == name);
+		//Datatype must be "Integer" for now. This is due to a bug in the JaQue library and author has been notified.
+		//As soon as the bug is fixed, the test will be updated.
+		Integer age = 80;
+		assertEqual("name = 'Donald' AND age > 80", person -> person.getName() == name && person.getAge() > age);
 	}
 
 	private void assertEqual(String expectedSql, SqlPredicate<Person> p) {

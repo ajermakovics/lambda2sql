@@ -1,6 +1,8 @@
 package lambda2sql;
 
 import com.trigersoft.jaque.expression.*;
+import java.util.List;
+import java.util.ArrayList;
 
 import java.util.ArrayList;
 
@@ -10,7 +12,7 @@ public class ToSqlVisitor implements ExpressionVisitor<StringBuilder> {
 
 	private StringBuilder sb = new StringBuilder();
 	private Expression body;
-	private ArrayList<ConstantExpression> parameters = new ArrayList<>();
+	private List<ConstantExpression> parameters = new ArrayList<>();
 
 	private static String toSqlOp(int expressionType) {
 		switch (expressionType) {
@@ -64,7 +66,6 @@ public class ToSqlVisitor implements ExpressionVisitor<StringBuilder> {
 		String name = e.getMember().getName();
 		name = name.replaceAll("^(get)", "");
 		name = name.substring(0, 1).toLowerCase() + name.substring(1);
-
 		return sb.append(name);
 	}
 

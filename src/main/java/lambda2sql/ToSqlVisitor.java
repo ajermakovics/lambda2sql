@@ -1,12 +1,11 @@
 package lambda2sql;
 
-import static com.trigersoft.jaque.expression.ExpressionType.Equal;
-import static com.trigersoft.jaque.expression.ExpressionType.LogicalAnd;
-import static com.trigersoft.jaque.expression.ExpressionType.LogicalOr;
-
 import com.trigersoft.jaque.expression.*;
-import java.util.List;
+
 import java.util.ArrayList;
+import java.util.List;
+
+import static com.trigersoft.jaque.expression.ExpressionType.*;
 
 public class ToSqlVisitor implements ExpressionVisitor<StringBuilder> {
 
@@ -14,28 +13,33 @@ public class ToSqlVisitor implements ExpressionVisitor<StringBuilder> {
 	private Expression body;
 	private List<ConstantExpression> parameters = new ArrayList<>();
 
+	private static String toSqlOp(int expressionType) {
+		switch (expressionType) {
+			case Equal:
+				return "=";
+			case LogicalAnd:
+				return "AND";
+			case LogicalOr:
+				return "OR";
+			case Convert:
+				return "";
+		}
+		return ExpressionType.toString(expressionType);
+	}
+
 	@Override
 	public StringBuilder visit(BinaryExpression e) {
 		boolean quote = e != body && e.getExpressionType() == LogicalOr;
 
-		if( quote ) sb.append('(');
+		if (quote) sb.append('(');
 
 		e.getFirst().accept(this);
 		sb.append(' ').append(toSqlOp(e.getExpressionType())).append(' ');
 		e.getSecond().accept(this);
 
-		if( quote ) sb.append(')');
+		if (quote) sb.append(')');
 
 		return sb;
-	}
-
-	public static String toSqlOp(int expressionType) {
-		switch(expressionType) {
-			case Equal: return "=";
-			case LogicalAnd: return "AND";
-			case LogicalOr: return "OR";
-		}
-		return ExpressionType.toString(expressionType);
 	}
 
 	@Override
@@ -74,7 +78,7 @@ public class ToSqlVisitor implements ExpressionVisitor<StringBuilder> {
 
 	@Override
 	public StringBuilder visit(UnaryExpression e) {
-		sb.append(ExpressionType.toString(e.getExpressionType()));
+		sb.append(toSqlOp(e.getExpressionType()));
 		return e.getFirst().accept(this);
 	}
 

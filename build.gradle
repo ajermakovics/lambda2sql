@@ -2,10 +2,10 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'maven'
 
-sourceCompatibility = 1.9
-targetCompatibility = 1.9
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
-version = '0.1'
+version = '1.0'
 group = "ajermakovics"
 archivesBaseName = "lambda2sql"
 jar.baseName = archivesBaseName

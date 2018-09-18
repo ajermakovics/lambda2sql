@@ -1,10 +1,11 @@
 package lambda2sql;
 
 public interface Person {
+	String getName();
 
-	public String getName();
-	public int getAge();
-	public int getHeight();
-	public boolean isActive();
+	int getAge();
 
+	int getHeight();
+
+	boolean isActive();
 }

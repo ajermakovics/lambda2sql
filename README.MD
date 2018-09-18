@@ -6,7 +6,7 @@ Lambda2sql (lambda) -> "sql"
 Convert Java 8 lambdas to SQL statements.
 
 For example, the following Predicate<Person>:
-```
+```jshelllanguage
  person -> person.getAge() < 100 && person.getHeight() > 200
 ```
  
@@ -22,12 +22,12 @@ See [Lambda2SqlTest](https://github.com/ajermakovics/lambda2sql/blob/master/src/
 Usage
 ---------
 
-```
-Lambda2Sql.init(); // initialize on program start, before predicates are created
+```jshelllanguage
+int age = 100;
+int height = 200;
+SqlPredicate<Person> predicate = person -> person.getAge() < age && person.getHeight() > height;
 
-Predicate<Person> predicate = person -> person.getAge() < 100 && person.getHeight() > 200;
-
-String sql = Lambda2Sql.toSql( predicate ); // age < 100 AND height > 200
+String sql = Lambda2Sql.toSql(predicate); // age < 100 AND height > 200
 ```
 
 
@@ -36,12 +36,12 @@ How it works
 
 It uses [JaQue](https://github.com/TrigerSoft/jaque) to build an expression tree for a lambda. The expression tree is then traversed and converted to a SQL statement. 
 
-Under the hood JaQue depends on the following system property:
-`jdk.internal.lambda.dumpProxyClasses`
+Under the hood, JaQue depends on the system property `jdk.internal.lambda.dumpProxyClasses`, if the lambda expression is not serialized:
 See [https://bugs.openjdk.java.net/browse/JDK-8023524](https://bugs.openjdk.java.net/browse/JDK-8023524).
 
 When the property is enabled, JVM generated classes for lambdas are saved to disk. JaQue then uses [ASM](http://asm.ow2.org/) to read the .class files and creates expression trees.
 
+Since the interface [`SqlPredicate<T>`](https://github.com/ajermakovics/lambda2sql/blob/master/src/main/java/lambda2sql/SqlPredicate.java) is automatically serialized, there is no need to set this property.
 
 Limitations
 ---------

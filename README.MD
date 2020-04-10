@@ -51,14 +51,14 @@ Current version only works with predicates and supports the following operators:
 Install
 -------
 
-You can get the library using JitPack https://jitpack.io/#ajermakovics/lambda2sql/0.3
+You can get the library using JitPack https://jitpack.io/#ajermakovics/lambda2sql/0.7
 
 ```gradle
 repositories {
     maven { url "https://jitpack.io" }
 }
 dependencies {
-    compile 'com.github.ajermakovics:lambda2sql:0.3'
+    compile 'com.github.ajermakovics:lambda2sql:0.7'
 }	
 ```
 
